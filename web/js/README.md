@@ -1,18 +1,25 @@
-Place your javascripts in this folder.
+Place your JavaScript files in this folder.
 
-Use the helper functions found in the /includes/functions.php file to find the 
-correct path in the system.
+Use the `appendScript` helper function found in the /lib/base/View.php file to append a JavaScript file to the app.
 
-h3. Example of usage
+### Example of usage
 
-<html>
+**HTML** - In the respective layout file
+
+```phtml
+<html lang="en">
 <head>
-  <script type="text/javascript" src="<?php echo get_javascript('jquery-1.4.1.min.js');?>"></script>
+    <?php $this->appendScript('main.js'); ?
 </head>
-<body>
-  Your body data here.
-</body>
-</html>
+```
 
-As you can see, the helper function get_javascript needs to be called, with the
-script you want to load as parameter.
+**PHP** - In the respective controller file:
+
+```php
+public function indexAction(){
+  $this->view->appendScript('main.js');
+}
+```
+
+
+As you can see, the helper function `appendScript` needs to be called, with the JavaScript file name you want to load as parameter.

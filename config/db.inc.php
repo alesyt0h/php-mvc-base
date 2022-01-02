@@ -2,6 +2,7 @@
 
 /**
  * This file is used for creating a connection to the database
+ * REVIEW This is file isn't being used by any function
  */
  
 // parses the settings file
