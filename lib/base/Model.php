@@ -45,11 +45,11 @@ class Model
 		$this->_table = $table;
 	}
 	
-	public function fetchOne($id)
+	public function fetchOne($id, $id_field = 'id')
 	{
 		$sql = 'SELECT * FROM ' . $this->_table;
-		$sql .= ' WHERE id = ?';
-		
+		$sql .= ' WHERE ' . $id_field . ' = ?';
+
 		$statement = $this->_dbh->prepare($sql);
 		$statement->execute(array($id));
 		
@@ -67,15 +67,15 @@ class Model
 		$sql = '';
 		
 		$values = array();
-		
-		if (array_key_exists('id', $data)) {
+		$firstField = array_key_first($data);
+	
+		if (preg_match('/id$/', $firstField)) {
 			$sql = 'UPDATE ' . $this->_table . ' SET ';
 			
 			$first = true;
 			foreach($data as $key => $value) {
-				if ($key != 'id') {
+				if ($key != $firstField) {
 					$sql .= ($first == false ? ',' : '') . ' ' . $key . ' = ?';
-					
 					$values[] = $value;
 					
 					$first = false;
@@ -83,9 +83,9 @@ class Model
 			}
 			
 			// adds the id as well
-			$values[] = $data['id'];
+			$values[] = $data[$firstField];
 			
-			$sql .= ' WHERE id = ?';// . $data['id'];
+			$sql .= ' WHERE ' . $firstField . ' = ?';// . $data['id'];
 			
 			$statement = $this->_dbh->prepare($sql);
 			return $statement->execute($values);
@@ -122,11 +122,12 @@ class Model
 	/**
 	 * Deletes a single entry
 	 * @param int $id the id of the entry to delete
+	 * @param string $id_field the id_field name of the entry to delete
 	 * @return boolean true if all went well, else false.
 	 */
-	public function delete($id)
+	public function delete($id, $id_field = 'id')
 	{
-		$statement = $this->_dbh->prepare("DELETE FROM " . $this->_table . " WHERE id = ?");
+		$statement = $this->_dbh->prepare("DELETE FROM " . $this->_table . " WHERE {$id_field} = ?");
 		return $statement->execute(array($id));
 	}
 }
