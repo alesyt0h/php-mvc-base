@@ -10,6 +10,8 @@ define('WEB_ROOT', substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NA
 define('ROOT_PATH', realpath(dirname(__FILE__) . '/../'));
 // defines the cms path
 define('CMS_PATH', ROOT_PATH . '/lib/base/');
+// defines the global app title
+define('APP_TITLE', 'myApp');
 
 // starts the session
 session_start();
