@@ -36,7 +36,7 @@ function autoloader($className) {
 			require_once ROOT_PATH . '/lib/' . $className . '.php';
 		}
 		else {
-			require_once ROOT_PATH . '/app/models/' . $className . '.php';
+			require_once ROOT_PATH . '/app/models/' . $className . '.model' . '.php';
 		}
 	}
 }

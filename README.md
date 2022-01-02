@@ -1,4 +1,4 @@
-# PHP initial Project
+# PHP MVC Base
 Main structure of php project. Folders / files:
 - **app**
   - **controllers**
@@ -9,16 +9,16 @@ Main structure of php project. Folders / files:
   - **base**
 - **web**
 
-### Usage
+## Usage
 
 The web/index.php is the heart of the system.
-This means that your web applications root folder is the “web” folder.
+*This means that your web applications root folder is the “web” folder.*
 
 All requests go through this file and it decides how the routing of the app
 should be.
 You can add additional hooks in this file to add certain routes.
 
-### Project Structure
+## Project Structure
 
 The root of the project holds a few directories:
 **/app** This is the folder where your magic will happen. Use the views, controllers and models folder for your app code.
@@ -30,45 +30,48 @@ The root of the project holds a few directories:
 The system uses a basic MVC structure, with your web app’s files located in the
 “app” folder.
 
-#### app/controllers
+### app/controllers
 Your application’s controllers should be defined here.
 
-All controller names should end with “Controller”. E.g. TestController.
-All controllers should inherit the library’s “Controller” class.
+* All controller names should end with “Controller”. E.g. TestController.
+* All controllers should inherit the library’s “Controller” class.
 However, you should generally just make an ApplicationController, which extends
 the Controller. Then you can defined beforeFilters etc in that, which will get run
 at every request.
 
-#### app/models
+### app/models
 Models handles database interaction etc.
 
 All models should inherit from the Model class, which provides basic functionality.
 The Model class handles basic functionality such as:
 
-Setting up a database connection (using PDO)
-fetchOne(ID)
-save(array) → both update/create
-delete(ID)
-app/views
+* Setting up a database connection (using PDO)
+* fetchOne(ID)
+* save(array) → both update/create
+* delete(ID)
+
+### app/views
 Your view files.
 The structure is made so that having a controller named TestController, it looks
 in the app/views/test/ folder for it’s view files.
 
-All view files end with .phtml
+* All view files end with .phtml
 Having an action in the TestController called index, the view file
 app/views/test/index.phtml will be rendered as default.
 
-#### config/routes.php
+### config/routes.php
 Your routes around the system needs to be defined here.
 A route consists of the URL you want to call + the controller#action you want it
 to hit.
 
 An example is:
+```php
 $routes = array(
-‘/test’ => ‘test#index’ // this will hit the TestController’s indexAction method.
+'/test' => 'test#index' // this will hit the TestController’s indexAction method.
 );
+```
 
-#### Error handling
+### Error handling
 A general error handling has been added.
 
 If a route doesn’t exist, then the error controller is hit.
