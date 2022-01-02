@@ -18,8 +18,8 @@ class View
 	
 	// initializes the data array
 	protected $_data = array();
-	// intializes the additional javascripts to add to the header.
-	protected $_javascripts = '';
+	// initializes the page title
+	protected $_pageTitle = APP_TITLE;
 	
 	public $settings = null;
 	
@@ -148,22 +148,32 @@ class View
 	}
 	
 	/**
-	 * Adds a new javascript to the header.
-	 * @param string $script the path to the script to add
+	 * Sets the page title
+	 * @param string $title the page title
+	 */
+	public function setTitle($title)
+	{
+		$this->_pageTitle = $title;
+	}
+
+	/**
+	 * Adds a new JavaScript to the header.
+	 * @param string $script the name of the JavaScript to add
 	 */
 	public function appendScript($script)
 	{
-		$this->_javascripts .= '<script type="text/javascript" src="'.$script.'"></script>' ."\n";
+		echo '<script type="text/javascript" src="' . $this->baseUrl() . '/js/' . $script . '"></script>';
 	}
-	
+
 	/**
-	 * Prints the included javascripts
+	 * Adds a new CSS Stylesheet to the header.
+	 * @param string $stylesheet the name of the Stylesheet to add
 	 */
-	public function printScripts()
+	public function appendCSS($stylesheet)
 	{
-		echo $this->_javascripts;
+		echo '<link rel="stylesheet" href="' . $this->baseUrl() . '/css/' . $stylesheet . '">';
 	}
-	
+
 	/**
 	 * Sets the layout to be used
 	 */
